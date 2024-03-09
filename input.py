@@ -1,0 +1,10 @@
+Name= input("Enter your name: ")
+age= input("Enter your age: ")
+gpa= input("Enter your GPA: ")
+
+print()
+print("Student Information")
+print("-------------------")
+print("Name: "+Name)
+print("Age: " +age)
+print("GPA: " +gpa)
