@@ -12,3 +12,4 @@ print("The result is ",+result)
 
 result = int(num1) % int(num2)
 print("The result is ",+result)
+
