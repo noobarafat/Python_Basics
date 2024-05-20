@@ -1,5 +1,14 @@
-has_high_income = True
-has_good_credit = False
+i = 1
+while i <= 5:
+    print('*' * i)
+    i = i + 1
+
+print("Done")
+
+
+
+# has_high_income = True
+# has_good_credit = False
 
 # if has_high_income and has_good_credit:
 #     print("Eligible for loan")
