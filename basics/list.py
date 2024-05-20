@@ -1,6 +1,6 @@
 myList = [1,2, 3,4, 5,6]
-# for i in range(0, 9):
-#     myList.append(i)
+# for guessCount in range(0, 9):
+#     myList.append(guessCount)
 print(myList)
 
 thisList = ['apple', 'banana', 'cherry', 'jackfruit']
