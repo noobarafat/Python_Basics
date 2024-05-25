@@ -1,3 +1,5 @@
+import random
+
 class Account:
     def __init__(self, number, owner, pin, balance=0):
         self.number = number
@@ -7,17 +9,17 @@ class Account:
 
     def deposit(self, amount):
         self.balance += amount
-        print(f"Deposited {amount} into account {self.number}. New balance: {self.balance}")
+        print(f"Deposited {amount} TK into account {self.number}. New balance: {self.balance} TK")
 
     def withdraw(self, amount):
         if self.balance >= amount:
             self.balance -= amount
-            print(f"Withdrew {amount} from account {self.number}. New balance: {self.balance}")
+            print(f"Withdrew {amount} TK from account {self.number}. New balance: {self.balance} TK")
         else:
             print("Insufficient funds")
 
     def check_balance(self):
-        print(f"Current balance for account {self.number}: {self.balance}")
+        print(f"Current balance for account {self.number}: {self.balance} TK")
 
     def change_pin(self, new_pin):
         self.pin = new_pin
@@ -38,9 +40,18 @@ class Bank:
         self.name = name
         self.accounts = []
 
-    def add_account(self, account):
+    def generate_account_number(self):
+        return str(random.randint(100000, 999999))
+
+    def add_account(self, owner, pin, initial_deposit):
+        if initial_deposit < 1000:
+            print("You need to deposit a minimum of 1000 TK to create an account.")
+            return None
+        number = self.generate_account_number()
+        account = Account(number, owner, pin, initial_deposit)
         self.accounts.append(account)
-        print(f"Account {account.number} created successfully for {account.owner}")
+        print(f"Account {account.number} created successfully for {account.owner} with an initial deposit of {initial_deposit} TK.")
+        return account
 
     def login(self, account_number, pin):
         account = self.find_account(account_number)
@@ -89,14 +100,18 @@ def main():
 
     while True:
         print_options()
-        choice = input("Enter your choice: ")
+        choice = input("Enter your choice: ").strip()
 
         if choice == '1':
-            acc_number = input("Enter account number: ")
             acc_owner = input("Enter account owner name: ")
             acc_pin = input("Enter PIN number: ")
-            account = Account(acc_number, acc_owner, acc_pin)
-            bank.add_account(account)
+            while True:
+                initial_deposit = float(input("Enter initial deposit amount (minimum 1000 TK): "))
+                if initial_deposit >= 1000:
+                    break
+                else:
+                    print("You need to deposit a minimum of 1000 TK to create an account.")
+            account = bank.add_account(acc_owner, acc_pin, initial_deposit)
 
         elif choice == '2':
             acc_number = input("Enter account number: ")
@@ -106,7 +121,7 @@ def main():
                 print(f"Login successful. Welcome {account.owner}")
                 while True:
                     print_account_options()
-                    acc_choice = input("Enter your choice: ")
+                    acc_choice = input("Enter your choice: ").strip()
 
                     if acc_choice == '1':
                         amount = float(input("Enter amount to deposit: "))
